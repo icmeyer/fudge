@@ -7,16 +7,16 @@
 #         (email: mattoon1@llnl.gov)
 # LLNL-CODE-683960.
 # All rights reserved.
-# 
-# This file is part of the FUDGE package (For Updating Data and 
+#
+# This file is part of the FUDGE package (For Updating Data and
 #         Generating Evaluations)
-# 
+#
 # When citing FUDGE, please use the following reference:
 #   C.M. Mattoon, B.R. Beck, N.R. Patel, N.C. Summers, G.W. Hedstrom, D.A. Brown, "Generalized Nuclear Data: A New Structure (with Supporting Infrastructure) for Handling Nuclear Data", Nuclear Data Sheets, Volume 113, Issue 12, December 2012, Pages 3145-3171, ISSN 0090-3752, http://dx.doi.org/10. 1016/j.nds.2012.11.008
-# 
-# 
+#
+#
 #     Please also read this link - Our Notice and Modified BSD License
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -27,7 +27,7 @@
 #     * Neither the name of LLNS/LLNL nor the names of its contributors may be used
 #       to endorse or promote products derived from this software without specific
 #       prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -39,20 +39,20 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# 
+#
+#
 # Additional BSD Notice
-# 
+#
 # 1. This notice is required to be provided under our contract with the U.S.
 # Department of Energy (DOE). This work was produced at Lawrence Livermore
 # National Laboratory under Contract No. DE-AC52-07NA27344 with the DOE.
-# 
+#
 # 2. Neither the United States Government nor Lawrence Livermore National Security,
 # LLC nor any of their employees, makes any warranty, express or implied, or assumes
 # any liability or responsibility for the accuracy, completeness, or usefulness of any
 # information, apparatus, product, or process disclosed, or represents that its use
 # would not infringe privately-owned rights.
-# 
+#
 # 3. Also, reference herein to any specific commercial products, process, or services
 # by trade name, trademark, manufacturer or otherwise does not necessarily constitute
 # or imply its endorsement, recommendation, or favoring by the United States Government
@@ -60,7 +60,7 @@
 # herein do not necessarily state or reflect those of the United States Government or
 # Lawrence Livermore National Security, LLC, and shall not be used for advertising or
 # product endorsement purposes.
-# 
+#
 # <<END-copyright>>
 
 """
@@ -81,6 +81,7 @@ import h5py
 keydir = {
         'alias': 'key',
         'particle': 'name',
+        'isotope': 'name',
         'level': 'label',
         'gamma': 'finalLevel',
         'openChannel': 'index',
@@ -100,8 +101,12 @@ keydir = {
         'axis': 'index',
         'energy_in': 'index',
         'energy_out': 'index',
+        'Legendre': 'value',
+        'XYs1d': {'XYs2d': 'value', 'regions1d': 'index'},
+        'XYs2d': {'XYs3d': 'value'},
         'mu': 'index',
-        'summand': '{http://www.w3.org/1999/xlink}href',
+        'add': '{http://www.w3.org/1999/xlink}href',
+        'crossSectionSum': 'label',
         # covariances:
         'covariance': 'id'
         }
@@ -116,7 +121,12 @@ def addNode( parent, node ):
     # some names must be modified since hdf5 doesn't allow duplicates
     if name in keydir.keys():
         node.set('tag', name)
-        name = "%s: %s" % (name, node.get( keydir[node.tag] ))
+        if isinstance(keydir[node.tag], dict):
+            tag_parent = parent.name.split('/')[-1]
+            if tag_parent in keydir[node.tag]:
+                name = "%s: %s" % (name, node.get( keydir[node.tag][tag_parent] ))
+        else:
+            name = "%s: %s" % (name, node.get( keydir[node.tag] ))
     name = name.replace('/','_')    # "1/2" not allowed in hdf5 group name
 
     try:
@@ -212,4 +222,3 @@ if __name__ == '__main__':
 
     root = xdoc.getroot()
     addNode( h5, root )
-
