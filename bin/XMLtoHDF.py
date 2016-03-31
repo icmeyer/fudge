@@ -88,6 +88,7 @@ keydir = {
         'spinGroup': 'index',
         'J_section': 'J',
         'L_section': 'L',
+        'Lspecific': 'L',
         'LdependentScatteringRadius': 'L',
         'column': 'index',
         'reaction': 'label',
@@ -102,11 +103,13 @@ keydir = {
         'energy_in': 'index',
         'energy_out': 'index',
         'Legendre': 'value',
+        'regions1d': {'XYs2d': 'value'},
         'XYs1d': {'XYs2d': 'value', 'regions1d': 'index'},
-        'XYs2d': {'XYs3d': 'value'},
+        'XYs2d': {'XYs3d': 'value', 'regions2d': 'index'},
         'mu': 'index',
         'add': '{http://www.w3.org/1999/xlink}href',
         'crossSectionSum': 'label',
+        'multiplicitySum': 'label',
         # covariances:
         'covariance': 'id'
         }
@@ -122,7 +125,7 @@ def addNode( parent, node ):
     if name in keydir.keys():
         node.set('tag', name)
         if isinstance(keydir[node.tag], dict):
-            tag_parent = parent.name.split('/')[-1]
+            tag_parent = parent.name.split('/')[-1].split(':')[0]
             if tag_parent in keydir[node.tag]:
                 name = "%s: %s" % (name, node.get( keydir[node.tag][tag_parent] ))
         else:
