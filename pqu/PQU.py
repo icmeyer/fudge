@@ -5,16 +5,16 @@
 #         (email: mattoon1@llnl.gov)
 # LLNL-CODE-683960.
 # All rights reserved.
-# 
-# This file is part of the FUDGE package (For Updating Data and 
+#
+# This file is part of the FUDGE package (For Updating Data and
 #         Generating Evaluations)
-# 
+#
 # When citing FUDGE, please use the following reference:
 #   C.M. Mattoon, B.R. Beck, N.R. Patel, N.C. Summers, G.W. Hedstrom, D.A. Brown, "Generalized Nuclear Data: A New Structure (with Supporting Infrastructure) for Handling Nuclear Data", Nuclear Data Sheets, Volume 113, Issue 12, December 2012, Pages 3145-3171, ISSN 0090-3752, http://dx.doi.org/10. 1016/j.nds.2012.11.008
-# 
-# 
+#
+#
 #     Please also read this link - Our Notice and Modified BSD License
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -25,7 +25,7 @@
 #     * Neither the name of LLNS/LLNL nor the names of its contributors may be used
 #       to endorse or promote products derived from this software without specific
 #       prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,20 +37,20 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# 
+#
+#
 # Additional BSD Notice
-# 
+#
 # 1. This notice is required to be provided under our contract with the U.S.
 # Department of Energy (DOE). This work was produced at Lawrence Livermore
 # National Laboratory under Contract No. DE-AC52-07NA27344 with the DOE.
-# 
+#
 # 2. Neither the United States Government nor Lawrence Livermore National Security,
 # LLC nor any of their employees, makes any warranty, express or implied, or assumes
 # any liability or responsibility for the accuracy, completeness, or usefulness of any
 # information, apparatus, product, or process disclosed, or represents that its use
 # would not infringe privately-owned rights.
-# 
+#
 # 3. Also, reference herein to any specific commercial products, process, or services
 # by trade name, trademark, manufacturer or otherwise does not necessarily constitute
 # or imply its endorsement, recommendation, or favoring by the United States Government
@@ -58,7 +58,7 @@
 # herein do not necessarily state or reflect those of the United States Government or
 # Lawrence Livermore National Security, LLC, and shall not be used for advertising or
 # product endorsement purposes.
-# 
+#
 # <<END-copyright>>
 
 # Notes.
@@ -69,15 +69,15 @@
 Introduction
 ---------------------------
 
-This module contains classes and functions for representing and manipulating a value with units and uncertainty, 
-herein called a "Physical Quantity with Uncertainty" or PQU. For example, if the distance between start and 
+This module contains classes and functions for representing and manipulating a value with units and uncertainty,
+herein called a "Physical Quantity with Uncertainty" or PQU. For example, if the distance between start and
 finish lines is measured to be '100.1 m' with an uncertainty of '0.4 m', it can be inputted to PQU as the string
-'100.1(4) m' or '100.1 +/- 0.4 m' (both are allowed input forms as well as several others - see `PQU`_). 
+'100.1(4) m' or '100.1 +/- 0.4 m' (both are allowed input forms as well as several others - see `PQU`_).
 
 From this module, most users should only need the PQU class which stores a PQU object and
-supports common math operations (e.g., addition, subtraction, multiplication) including the operation on 
-the units and uncertainty. 
-For example, if a person races between the start and finish lines in a time of '16.3 +/- 0.1 s', the PQU class can 
+supports common math operations (e.g., addition, subtraction, multiplication) including the operation on
+the units and uncertainty.
+For example, if a person races between the start and finish lines in a time of '16.3 +/- 0.1 s', the PQU class can
 be used to determine the person's speed as:
 
 >>> from pqu import PQU
@@ -119,19 +119,19 @@ uncertainty is entered as the only argument then 'significantDigits' is the numb
 
 >>> print PQU.PQU( '12.345' ).info( )
 value = 1.23450000000000006e+01, significantDigits = 5, order = 1, isPercent = False, unit = ""
-uncertainty = 
+uncertainty =
 >>> print PQU.PQU( '12.34500' ).info( )
 value = 1.23450000000000006e+01, significantDigits = 7, order = 1, isPercent = False, unit = ""
-uncertainty = 
+uncertainty =
 >>> print PQU.PQU( '12.34500e-12' ).info( )
 value = 1.23450000000000004e-11, significantDigits = 7, order = -11, isPercent = False, unit = ""
-uncertainty = 
+uncertainty =
 >>> print PQU.PQU( '0012.34500e-12' ).info( )
 value = 1.23450000000000004e-11, significantDigits = 7, order = -11, isPercent = False, unit = ""
-uncertainty = 
+uncertainty =
 >>> print PQU.PQU( '00.0012' ).info( )
 value = 1.19999999999999989e-03, significantDigits = 2, order = -3, isPercent = False, unit = ""
-uncertainty = 
+uncertainty =
 
 If the string has an uncertainty, then it is also used in calculating 'significantDigits'.
 Some examples are (note - these are the same as the last examples, with uncertainties added):
@@ -159,7 +159,7 @@ uncertainty = value = 3.20000000000000025e-14, significantDigits = 2, order = -1
 >>> print PQU.PQU( '00.0012 +/- 0.000002' ).info( )
 value = 1.19999999999999989e-03, significantDigits = 4, order = -3, isPercent = False, unit = ""
 uncertainty = value = 1.99999999999999991e-06, significantDigits = 1, order = -6, isPercent = False
->>> print PQU.PQU( '00.0012 +/- 0.000002' )        
+>>> print PQU.PQU( '00.0012 +/- 0.000002' )
 1.200e-3 +/- 2.e-6
 
 The PQU constructor (i.e., its __init__ method) allows various input options for creating an instance (see `PQU`_).
@@ -190,7 +190,7 @@ This module uses the SI units along with units for angle and solid angle as its 
     +-----------+-------+---------------------------+
     | candela   | 'cd'  | luminous intensity        |
     +-----------+-------+---------------------------+
-    | radian    | 'rad' | angle                     | 
+    | radian    | 'rad' | angle                     |
     +-----------+-------+---------------------------+
     | steradian | 'sr'  | solid angle               |
     +-----------+-------+---------------------------+
@@ -220,7 +220,7 @@ Here the method :py:meth:`PQU.copyToUnit` is used to convert the units into a di
 example showing the use of the :py:meth:`PQU.copyToUnit` method:
 
 >>> mass = PQU.PQU( "4.321 g" )
->>> speed = PQU.PQU( "1.234 inch / mus"  )  
+>>> speed = PQU.PQU( "1.234 inch / mus"  )
 >>> energy = mass * speed**2
 >>> print energy
 6.580 inch**2*g/mus**2
@@ -228,7 +228,7 @@ example showing the use of the :py:meth:`PQU.copyToUnit` method:
 >>> print energy_joules
 4.245e6 J
 
-The method :py:meth:`PQU.inUnitsOf` is useful for returning a physical quantity in units of descending compatible units. 
+The method :py:meth:`PQU.inUnitsOf` is useful for returning a physical quantity in units of descending compatible units.
 For example, :py:meth:`PQU.inUnitsOf` will convert '3123452.12 s' into days, hours, minutes and seconds, or just hours and seconds as:
 
 >>> t = PQU.PQU( '3123452.12 s' )
@@ -244,7 +244,7 @@ Changing non-hardwired constants
 ------------------------------------------------------------------------------------------
 
 PQU has a set of defined constants that are hardwired and a set that are not hardwired. The non-hardwired
-constants reside in the module pqu_constants.py and are import by PQU when it is first loaded. It is 
+constants reside in the module pqu_constants.py and are import by PQU when it is first loaded. It is
 possible to change a non-hardwired constant by loading the pqu_constants.py module before PQU is imported, redefining
 the constant and then importing PQU. For example, as of this writing the elementary charge is defined as '1.60217653e-19 * C':
 
@@ -331,7 +331,7 @@ the two operands are the same instance, 100% correlation is assumed. For example
 >>> print Q1 / PQU.PQU( '12.3 +/- .2 m' )   # Operands are not the same instance
 1.00 +/- 0.02
 
-There is one exception (depending on your divide-by-zero belief) to this rule of same instance and that happens when the 
+There is one exception (depending on your divide-by-zero belief) to this rule of same instance and that happens when the
 value of the operand is 0. Divide-by-zero always executes a raise of 'ZeroDivisionError', even for 'a / a'.
 
 >>> Q2 = PQU.PQU( "0.00 +/- 0.02" )
@@ -350,7 +350,7 @@ For multiplication with PQU instances Q1 and Q2 as operands the uncertainty is p
 uncorrelated values (i.e., as dQ3 = sqrt( ( V2 * dQ1 )**2 + ( V1 * dQ2) **2 + ( dQ1 * dQ2 )**2 )). For division, the expression 'Q1 / Q2'
 is converted to 'Q1 * Q3' with 'Q3 = PQU( 1 / V2, unit = 1 / U2, uncertainty = dQ2 / ( V2 * V2 ) )' where U2 is the unit of Q2.
 
-For the power method, simple propagation is perform which is only valid if the uncertainty is small relative to the value. 
+For the power method, simple propagation is perform which is only valid if the uncertainty is small relative to the value.
 This is, for 'Q2 = pow( Q1, n1 )' the uncertainty for Q2 is 'dQ2 = n1 * V1**(n1-1) * dQ1'.
 Note, the 'sqrt' method is equivalent to the 'pow' method with power of 0.5.
 
@@ -408,7 +408,7 @@ The PQU class has methods for the following arithmetic operations. Unless stated
     operand is passed to :py:meth:`PQU._getOtherAsPQU`. As expected, the __imul__ and __idiv__ methods modify self and
     return it. All these methods call the __mul__ method; except, when a division happens, and 'self is other'
     and the denominator is not 0.
-    That is, the expression 'a / a' is handled as a special case when float( a ) != 0. In this case, a 
+    That is, the expression 'a / a' is handled as a special case when float( a ) != 0. In this case, a
     dimensionless PQU is returned with value 1 and no uncertainty.
 
     If self is not other, the uncertainty is propagated using Goodman's expression for uncorrelated values.
@@ -418,14 +418,14 @@ The PQU class has methods for the following arithmetic operations. Unless stated
 
     This method raises - not in the python sense but in the mathematical sense (i.e., x**y) -
     self to a power. Standard uncertainty propagation is performed which is only valid when
-    the uncertainty is small compared to the value.  A quantity can be raised to a non-integer power 
+    the uncertainty is small compared to the value.  A quantity can be raised to a non-integer power
     only if the result can be represented by integer powers of the base units.
 
 **__eq__, __ne__, __lt__, __le__, __gt__, __ge__, compare, equivalent**
 
     These methods compare self to another object. For these operators, the other
     object is passed to :py:meth:`PQU._getOtherAsPQU`. The first 6 methods all call the :py:func:`compare` method
-    with epsilonFactor = 5. All methods except 'equivalent' compare 
+    with epsilonFactor = 5. All methods except 'equivalent' compare
     self's and other's values only. The 'equivalent' method also considers self's and other's uncertainty.
 
 **__deepcopy__, convertToUnit, copyToUnit, inUnitsOf, getUnitAsString, getValueAs, getUncertaintyValueAs**
@@ -462,7 +462,7 @@ Most of the additions to Hinsen's version were done by Nidhi R. Patel and Bret R
 with feedback from Caleb M. Mattoon, Neil Summers and David Brown.
 
 The values of physical constants are taken from the 2010 recommended values from
-CODATA. Other conversion factors (e.g. for British units) come from various 
+CODATA. Other conversion factors (e.g. for British units) come from various
 sources. I can't guarantee for the correctness of all entries in the unit table,
 so use this at your own risk.
 
@@ -475,7 +475,7 @@ This section describes several oddities about PQU.
     - Units 'oz', 'lb' and 'ton' (i.e., ounce, pound and ton respectively) are units of mass and not force.
       As example, the unit 'psi' (i.e., pounds per square inch) is equivalent to about '32.174 ft / s**2 * lb / inch**2'.
 
-    - In the following, the first line products a significantDigits that is small but correct per PQU 
+    - In the following, the first line products a significantDigits that is small but correct per PQU
       rules as the number of significant digits is determined by the '1'.
 
 >>> from pqu import PQU
@@ -485,7 +485,7 @@ This section describes several oddities about PQU.
 5.e-11 m
 >>> print b2.value.info( )
 value = 5.29177208114537818e-11, significantDigits = 1, order = -11, isPercent = False
->>> 
+>>>
 >>> b3 = PQU.PQU( 1, 'Bohr' )        # this yields significantDigits = 16.
 >>> b4 = b3.inBaseUnits( )
 >>> print b4
@@ -496,7 +496,7 @@ value = 5.29177208114537818e-11, significantDigits = 16, order = -11, isPercent 
     - The temperature units are Kelvin (i.e., 'K'), Celsius ('degC'), Rankine ('degR') and Fahrenheit ('degF').
       Two of these units (i.e., 'degC' and 'degF') cannot be used with any other unit including itself. That is,
       PQU( value, 'degC' ) and PQU( value, 'degF' ) are the only allowed forms when 'degF' or 'degC' are present.
-      The two absolute temperature units (i.e., 'K' and 'degR') have no such restriction. As an example, heat 
+      The two absolute temperature units (i.e., 'K' and 'degR') have no such restriction. As an example, heat
       capacity can be expressed in units of 'W/(m * K)' or 'BTU/(hr * ft * degR)' but cannot be expressed in units
       of 'W/(m * degC)' or 'BTU/(hr * ft * degF)'.
       Any temperature unit can be converted to another temperature unit. For example,
@@ -511,7 +511,7 @@ value = 5.29177208114537818e-11, significantDigits = 16, order = -11, isPercent 
 564. degR
 
     - PQU, actually PhysicalUnit, allows the unit to have values. For example 'm/s/25**3' is currently a valid
-      unit and stored that way.  This should probably not be allowed and will probably be 
+      unit and stored that way.  This should probably not be allowed and will probably be
       deprecated (i.e., do not rely on it).
       The following illustrates the issue:
 
@@ -525,7 +525,7 @@ value = 5.29177208114537818e-11, significantDigits = 16, order = -11, isPercent 
 6.69e5 km/s
 >>> print c1.getValue( )
 668537.18134
->>> 
+>>>
 >>> c2 = PQU.PQU( '2.23 c' ) / 3
 >>> print c2
 0.743 c
@@ -535,7 +535,7 @@ value = 5.29177208114537818e-11, significantDigits = 16, order = -11, isPercent 
 2.23e5 km/s
 >>> print c2.getValue( )
 222845.727113
->>> 
+>>>
 >>> c3 = PQU.PQU( '2.23 c / 3' )
 >>> print c3
 2.23 c/3
@@ -545,10 +545,10 @@ value = 5.29177208114537818e-11, significantDigits = 16, order = -11, isPercent 
 2.23e5 km/s
 >>> print c3.getValue( )
 222845.727113
->>> 
+>>>
 >>> print c1 == c2, c1 == c3, c2 == c3
 False False True
->>> 
+>>>
 >>> print PQU.PQU( '2.23 2. * c / 3**2 / pi' )
 2.23 c*2.0/9/3.14159265359
 
@@ -562,7 +562,7 @@ Future plans
 
 import sys, math, re, string
 from functools import reduce
-from NumberDict import NumberDict
+from .NumberDict import NumberDict
 
 MAJORVERSION = 1
 MINORVERSION = 1
@@ -575,13 +575,13 @@ __metaclass__ = type
 
 def compare( value1, value2, epsilonFactor = 0 ) :
     """
-    This function compares two floats (or objects that can be converted to floats) in a fuzzy way 
+    This function compares two floats (or objects that can be converted to floats) in a fuzzy way
     where the fuzz factor is epsilonFactor * sys.float_info.epsilon. This function returns
 
          0          if the floats are comparable as given by epsilonFactor (see below),
          otherwise, it returns 1 (-1) if value1 is greater (less) than value2.
 
-    Two floats are comparable if the magnitude of the 'relative difference' between them is less than or equal to 
+    Two floats are comparable if the magnitude of the 'relative difference' between them is less than or equal to
     epsilonFactor * sys.float_info.epsilon. The relative difference is defined as
 
          ( value1 - value2 ) / max( abs( value1 ), abs( value2 ) )
@@ -615,7 +615,7 @@ def compare( value1, value2, epsilonFactor = 0 ) :
 
 def valueOrPQ( value, unitFrom = None, unitTo = None, asPQU = False, checkOrder = True ) :
     """
-    This function is designed as a convenience function for working with PQU 
+    This function is designed as a convenience function for working with PQU
     and float instances. That is, instead of checking the type of value, let valueOrPQ handle some of the
     details. The first argument can be either a PQU or something
     that is a valid argument for the python 'float' function (e.g., 1.23, "1.23"). The returned instance
@@ -650,7 +650,7 @@ def valueOrPQ( value, unitFrom = None, unitTo = None, asPQU = False, checkOrder 
         |PQU  |string  |None  |PU      |None    |float in|PQU (need to check that PQ|
         |     |or PU   |      |        |        |unitFrom|and unitFrom are the same)|
         +-----+--------+------+--------+--------+--------+--------------------------+
-        |PQU  |string  |string|PU      |PU      |float in|PQU in unitTo (ditto)     | 
+        |PQU  |string  |string|PU      |PU      |float in|PQU in unitTo (ditto)     |
         |     |or PU   |or PU |        |        |unitTo  |                          |
         +-----+--------+------+--------+--------+--------+--------------------------+
         |PQU  |None    |string|PU      |PU      |float in|PQU in unitTo             |
@@ -675,7 +675,7 @@ def valueOrPQ( value, unitFrom = None, unitTo = None, asPQU = False, checkOrder 
 
     def _getUnit( unit, default = None ) :
         """
-        Returns an instance of PhysicalUnit based first on the argument 'unit' and then 'default'. 'unit' can only be a PhysicalUnit, 
+        Returns an instance of PhysicalUnit based first on the argument 'unit' and then 'default'. 'unit' can only be a PhysicalUnit,
         string (e.g., '', 'MeV', 'b * eV') or None. Default must be either a PQU instance or None.
         """
 
@@ -708,12 +708,12 @@ def valueOrPQ( value, unitFrom = None, unitTo = None, asPQU = False, checkOrder 
 
 def floatToShortestString( value, significantDigits = 15, trimZeros = True, keepPeriod = False, favorEFormBy = 0, includeSign = False ) :
     """
-    This function returns the shortest string representation of the float 'value' that is accurate to 
+    This function returns the shortest string representation of the float 'value' that is accurate to
     'significantDigits' digits when converted back to a float.
 
     The float is converted to both the E-form (i.e., '%e') and F-form (i.e., '%f') with significantDigits.
-    Then, after 'trimZeros' and 'keepPeriod' options are implemented, if the length of the E-form minus 
-    favorEFormBy is less than or equal to the length of the F-form, the E-form is returned. Otherwise 
+    Then, after 'trimZeros' and 'keepPeriod' options are implemented, if the length of the E-form minus
+    favorEFormBy is less than or equal to the length of the F-form, the E-form is returned. Otherwise
     the F-form is returned.
 
     For example, for significantDigits = 12 the returned string for the float 1.234 will be "1.234", and
@@ -736,7 +736,7 @@ def floatToShortestString( value, significantDigits = 15, trimZeros = True, keep
                                 with the shortest representation is determined.
     :type favorEFormBy: integer
 
-    :param includeSign:         If True, the returned string will always start with a sign character 
+    :param includeSign:         If True, the returned string will always start with a sign character
                                 (i.e., '+' or '-'). Otherwise, only negative values will have a sign.
     :type includeSign: bool
 
@@ -794,7 +794,7 @@ class pqu_float :
 
     - value              --- The python value of the float.
     - significantDigits  --- The number of significant digits the value possess as defined by the creator of self.
-    - order              --- An integer that represents the order of the most significant digit of self. 
+    - order              --- An integer that represents the order of the most significant digit of self.
                              Calculated internally equivalent to int( log10( value ) ) and stored for convenience.
     - _isPercent         --- True if self represents a percent and False otherwise. Note, the value is always stored as
                              the non-percent value (e.g., 1% and 12% are stored as 0.01 and 0.12 respectively).
@@ -1057,7 +1057,7 @@ class pqu_float :
         value = self.value
         if( self._isPercent ) : value *= 100.
         if( significantDigits is None ) : significantDigits = self.significantDigits
-        str1 = floatToShortestString( value, significantDigits = significantDigits, trimZeros = trimZeros, 
+        str1 = floatToShortestString( value, significantDigits = significantDigits, trimZeros = trimZeros,
             keepPeriod = keepPeriod, favorEFormBy = favorEFormBy )
         if( includePercent and self._isPercent ) : str1 += '%'
         return( str1 )
@@ -1068,7 +1068,7 @@ class pqu_float :
         and significantDigits = 4 then the value is set to 3.454. If significantDigits is None, self's significantDigits
         is used.
 
-        :param significantDigits: 
+        :param significantDigits:
         :type significantDigits: None or `int`
         """
 
@@ -1095,12 +1095,12 @@ class pqu_float :
     @staticmethod
     def fixFloatsOrder( value ) :
         """
-        Many numbers are not represented in IEEE floating point by there true value. For example, '1e-12' is 
-        stored as the float 9.9999999999999998e-13. The order of the true value is -12 while the order of the floating 
-        point representation is -13.  This function is implemented to help with this issue.  For example, for 
+        Many numbers are not represented in IEEE floating point by there true value. For example, '1e-12' is
+        stored as the float 9.9999999999999998e-13. The order of the true value is -12 while the order of the floating
+        point representation is -13.  This function is implemented to help with this issue.  For example, for
         PQU the string "2.300000000003 (1)" was originally being reprinted as "2.300000000003 (10)" because of this issue.
-        To check for this, the value is multiplied by a small (of order sys.float_info.epsilon) factor to see if order 
-        changes.  If it does, value is set to the smallest multiplier greater than 1 for which order is changed. 
+        To check for this, the value is multiplied by a small (of order sys.float_info.epsilon) factor to see if order
+        changes.  If it does, value is set to the smallest multiplier greater than 1 for which order is changed.
         The fixed value and its order are returned.
 
         :param value: any object convertible to a float.
@@ -1203,7 +1203,7 @@ class pqu_uncertainty :
     def _changeUncertaintyStyle( self, style ) :
         """For internal use."""
 
-        if( not( self._okayToChangeUncertaintyStyleTo( style ) ) ) : 
+        if( not( self._okayToChangeUncertaintyStyleTo( style ) ) ) :
             raise Exception( 'Cannot change uncertainty style from "%s" to "%s"' % ( self.style, style ) )
         self.style = style
 
@@ -1213,7 +1213,7 @@ class pqu_uncertainty :
         if( self.style == style ) : return( True )
         if( self.style == pqu_uncertainty.pqu_uncertaintyStyleNone ) : return( False )
         if( style == pqu_uncertainty.pqu_uncertaintyStyleNone ) : return( False )
-        if( ( style != pqu_uncertainty.pqu_uncertaintyStyleParenthesis ) and 
+        if( ( style != pqu_uncertainty.pqu_uncertaintyStyleParenthesis ) and
             ( style != pqu_uncertainty.pqu_uncertaintyStylePlusMinus ) ) : raise TypeError( 'Invalid style "%s"' % style )
         if( checkPercent and self.value.isPercent( ) ) : raise Exception( "Cannot change pqu_uncertaintyStylePlusMinus that is a percent" )
         return( True )
@@ -1285,7 +1285,7 @@ class pqu_uncertainty :
         """
         Adjusts self's value so that only the significant digits are non-zero. This is most useful when a PQU instance is
         calculated from other PQU instance which can create an uncertainty with many non-zero digits. As example, adding two
-        PQUs with uncertainties 1.3 and 3.2 each with two significant digits, produces the uncertainty sqrt( 1.3**2 + 3.2**2 ) 
+        PQUs with uncertainties 1.3 and 3.2 each with two significant digits, produces the uncertainty sqrt( 1.3**2 + 3.2**2 )
         = 3.453983207834109. This uncertainty also only has two significant digits. After calling truncate the uncertainty
         become 3.5 which is the value that the method toString would return.
         """
@@ -1294,7 +1294,7 @@ class pqu_uncertainty :
 
 class PQU :
     """
-    This class supports a float value with an optional uncertainty and unit. Many basic math operations are supported (e.g., +, -, * /). 
+    This class supports a float value with an optional uncertainty and unit. Many basic math operations are supported (e.g., +, -, * /).
     A PQU is anything that the staticmethod parsers.parsePQUString can parse.
 
     In this section the following notations are used:
@@ -1315,7 +1315,7 @@ class PQU :
         |                           | not '12.3 eV') or any object having a __float__ method (hence, a numpy float      |
         |                           | will work).                                                                       |
         +---------------------------+-----------------------------------------------------------------------------------+
-        | uncertainty = number_unc  | The uncertainty argument must be a valid number or a pqu_uncertainty object.      | 
+        | uncertainty = number_unc  | The uncertainty argument must be a valid number or a pqu_uncertainty object.      |
         |                           | If number, uncertainty is of style '+/-'.                                         |
         +---------------------------+-----------------------------------------------------------------------------------+
         | unit = string_pu          | The unit argument must be a valid unit string (e.g., "MeV", "MeV/m" but not       |
@@ -1326,7 +1326,7 @@ class PQU :
         |                           | '1.23 +/- 0.12m'). If it contains a unit (uncertainty) then the unit              |
         |                           | (uncertainty) argument must be None.                                              |
         +---------------------------+-----------------------------------------------------------------------------------+
-                
+
         Calling options are:
 
             - PQU( pqu )                                            # The new PQU gets all data from pqu. Unit and uncertainty must be None.
@@ -1404,7 +1404,7 @@ class PQU :
                 if( uncertainty_ == 0. ) :
                     uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStyleNone )
                 else :
-                    uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, uncertainty_, 
+                    uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, uncertainty_,
                         significantDigits = significantDigits, isPercent = isPercent )
             if( uncertainty.getStyle( ) == pqu_uncertainty.pqu_uncertaintyStylePlusMinus ) :
                 uncertaintyLeastOrder = uncertainty.value.getOrder( ) - uncertainty.value.getSignificantDigits( )
@@ -1415,7 +1415,7 @@ class PQU :
                 value.setSignificantDigits( significantDigits )
             elif( uncertainty.getStyle( ) == pqu_uncertainty.pqu_uncertaintyStyleParenthesis ) :
                 parenthesisPower = pqu_float.fixFloatsOrder( pow( 10., value.order - value.significantDigits + 1 ) )[0]
-                uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStyleParenthesis, 
+                uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStyleParenthesis,
                     uncertainty.value * parenthesisPower, significantDigits = uncertainty.value.getSignificantDigits( ) )
 
         if( value.isPercent( ) ) :
@@ -1454,7 +1454,7 @@ class PQU :
         uncertaintySelf, uncertaintyOther = self.getUncertaintyValueAs( ), other.getUncertaintyValueAs( ) * factor
         uncertainty = math.sqrt( uncertaintySelf * uncertaintySelf + uncertaintyOther * uncertaintyOther )
                 # Guess at style. If it should be pqu_uncertaintyStyleNone then uncertainty will be 0, which pqu_uncertainty will correct.
-        uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, uncertainty ) 
+        uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, uncertainty )
         leastSignificantOrder = value.order - value.significantDigits
         uncertainty.value.setSignificantDigits( uncertainty.value.order - leastSignificantOrder )
         return( PQU( value, self.unit, uncertainty ) )
@@ -1491,7 +1491,7 @@ class PQU :
         uncertaintySelf2, uncertaintyOther2 = uncertaintySelf * otherValue, uncertaintyOther * selfValue
         extraFactor = uncertaintySelf * uncertaintyOther
         if( ( self is other ) and ( selfValue != 0 ) ) : extraFactor = 2 * selfValue * otherValue
-        uncertainty = math.sqrt( uncertaintySelf2 * uncertaintySelf2 + uncertaintyOther2 * uncertaintyOther2 + 
+        uncertainty = math.sqrt( uncertaintySelf2 * uncertaintySelf2 + uncertaintyOther2 * uncertaintyOther2 +
             extraFactor * uncertaintySelf * uncertaintyOther )
         significantDigits = min( self.uncertainty.value.getSignificantDigits( ), other.uncertainty.value.getSignificantDigits( ) )
         uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, uncertainty, significantDigits )
@@ -1535,7 +1535,7 @@ class PQU :
 
         if( value != 0 ) :  # This is not the correct answer when value is small compared to uncertainty. Needs work?
             uncertainty = ( power * float( valueToPower ) / value ) * self.uncertainty
-            if( uncertainty.getStyle( ) == pqu_uncertainty.pqu_uncertaintyStyleParenthesis ) : 
+            if( uncertainty.getStyle( ) == pqu_uncertainty.pqu_uncertaintyStyleParenthesis ) :
                 uncertainty.style = pqu_uncertainty.pqu_uncertaintyStylePlusMinus
         valueToPower = pqu_float( valueToPower, self.value.getSignificantDigits( ) )
         return( PQU( valueToPower, unit = pow( self.unit, power ), uncertainty = uncertainty ) )
@@ -1624,7 +1624,7 @@ class PQU :
             if( self.isPercent( ) ) : raise Exception( 'Uncertainty cannot be percent when value is a percent' )
             if( toPercent ) :
                 value = 100 * float( self.uncertainty ) / float( self )
-                self.uncertainty = pqu_uncertainty( style, value, 
+                self.uncertainty = pqu_uncertainty( style, value,
                     self.uncertainty.value.getSignificantDigits( ), isPercent = True )
             else :
                 self.uncertainty = pqu_uncertainty( style, self.getUncertaintyValueAs( ), self.uncertainty.value.getSignificantDigits( ) )
@@ -2049,7 +2049,7 @@ class PQU :
     def _getOtherAsPQU( other ) :
         """
         Returns a PQU representation of other. If other is a PQU
-        instance, it is returned (i.e., no copy is made). Otherwise, the PQU.__init__ 
+        instance, it is returned (i.e., no copy is made). Otherwise, the PQU.__init__
         method is called with only other as an argument and its return value returned.
 
         :param other: a PQU equivalent to convert, if needed, to a PQU instance
@@ -2109,13 +2109,13 @@ class parsers :
     @staticmethod
     def parseFloat( str1, fullStr ) :
         """
-        This method parses the beginning of str1 for a valid float. An arbitrary number of white spaces can exists before the 
-        float characters. This method returns a tuple of length 3. The first item of the tuple is the float 
-        value returned as a pqu_float instance with significantDigits determined from the string.  The second 
-        item is significantDigitsForZero which, if the string represents a 0 value, gives the number of significant 
-        digits for the zero; otherwise None is returned. As example, the string '000.000' has 4 significant digits 
-        (i.e., it is considered equivalent to the representation '0.000').  The last object is the string of all 
-        characters after the last one used for converting the float.  For example, with str1 = '   12.345e3ABCD XYS' 
+        This method parses the beginning of str1 for a valid float. An arbitrary number of white spaces can exists before the
+        float characters. This method returns a tuple of length 3. The first item of the tuple is the float
+        value returned as a pqu_float instance with significantDigits determined from the string.  The second
+        item is significantDigitsForZero which, if the string represents a 0 value, gives the number of significant
+        digits for the zero; otherwise None is returned. As example, the string '000.000' has 4 significant digits
+        (i.e., it is considered equivalent to the representation '0.000').  The last object is the string of all
+        characters after the last one used for converting the float.  For example, with str1 = '   12.345e3ABCD XYS'
         the returned tuple is:
 
         ( pqu_float( 1.2345e4, 5 ), None, 'ABCD XYS' ).
@@ -2152,10 +2152,10 @@ class parsers :
     @staticmethod
     def parsePlusMinusUncertainty( str1, fullStr ) :
         """
-        This method parses the beginning of str1 for the sub-string '+/-' followed by a float string. An arbitrary number of 
+        This method parses the beginning of str1 for the sub-string '+/-' followed by a float string. An arbitrary number of
         white spaces can exists before the '+/-' sub-string and between it and the float string. This method
         returns a tuple of length 2. The first item of the tuple is float value returned as a pqu_uncertainty
-        of style pqu_uncertaintyStylePlusMinus. Characters after the last one used for converting the float are 
+        of style pqu_uncertaintyStylePlusMinus. Characters after the last one used for converting the float are
         returned as the second item. For example, with str1 = ' +/-  12. ABCD XYS' the returned tuple is:
 
         ( pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStylePlusMinus, 12. ), ' ABCD XYS' )
@@ -2177,8 +2177,8 @@ class parsers :
     def parseParenthesisUncertainty( str1, fullStr ) :
         """
         This method parses the beginning of str1 for the sub-string '(#)' where '#' is a 1 or 2 digit
-        number.  This method returns a tuple of length 2. The first item of the tuple is the number returned as 
-        a pqu_uncertainty of style pqu_uncertaintyStyleParenthesis. Characters after the ')' are returned 
+        number.  This method returns a tuple of length 2. The first item of the tuple is the number returned as
+        a pqu_uncertainty of style pqu_uncertaintyStyleParenthesis. Characters after the ')' are returned
         as the second item. For example, with str1 = '(34) ABCD XYS' the returned tuple is:
 
         ( pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStyleParenthesis, 34, significantDigits = 2 ), ' ABCD XYS' ).
@@ -2190,7 +2190,7 @@ class parsers :
 
         if( not( isinstance( str1, str ) ) ) : raise TypeError( 'Argument must be a string: type = %s' % type( str1 ) )
         match = parsers._uncertaintyParenthesis_andAnythingElse_PO.match( str1 )
-        if( match is None ) : raise TypeError( 'String does not match "(#)" or "(##)" where "#" is a digit: "%s" or "%s"' % 
+        if( match is None ) : raise TypeError( 'String does not match "(#)" or "(##)" where "#" is a digit: "%s" or "%s"' %
             ( str1, fullStr ) )
         groups = match.groups( )
         uncertainty = pqu_uncertainty( pqu_uncertainty.pqu_uncertaintyStyleParenthesis, float( groups[0] ), len( groups[0] ), checkOrder = False )
@@ -2222,7 +2222,7 @@ class parsers :
     @staticmethod
     def parsePQUString( str1 ) :
         """
-        Parses the string str1 and returns the tuple ( value, unit, uncertainty ) where value is an instance of pqu_float, 
+        Parses the string str1 and returns the tuple ( value, unit, uncertainty ) where value is an instance of pqu_float,
         unit is an instance of PhysicalUnit and uncertainty is an instance of pqu_uncertainty.
 
         The string can be one of the following PQU forms. Here, F represents a valid float string, () represents
@@ -2302,11 +2302,11 @@ class PhysicalUnit :
     .. rubric:: PHYSICAL UNIT
 
     A physical unit is defined by a symbol (possibly composite), a scaling factor, and
-    the powers of each of the SI base units that enter into it. Units can be 
+    the powers of each of the SI base units that enter into it. Units can be
     multiplied, divided, and raised to integer powers.
 
     :param symbols: a dictionary mapping each symbol component to its associated integer
-                power (e.g., ``{'m': 1, 's': -1}``) for `m/s`). As a shorthand, a string may be 
+                power (e.g., ``{'m': 1, 's': -1}``) for `m/s`). As a shorthand, a string may be
                 passed which is assigned an implicit power 1.
     :type symbols: `dict` or `str`
 
@@ -2319,7 +2319,7 @@ class PhysicalUnit :
     :param powers: the integer powers for each of the nine base units
     :type powers: `list` of `int`
     """
-    
+
     def __init__( self, symbols, factor, powers, offset = 0 ) :
 
         if( symbols is not None ) :
@@ -2473,9 +2473,9 @@ class PhysicalUnit :
         other_ = _getPhysicalUnit( other )
         if( self.powers != other_.powers ) : raise TypeError( 'Unit "%s" not convertible with "%s"' % ( self, other ) )
 
-        # Let (s1,d1) be the conversion tuple from 'self' to base units (i.e. (x+d1)*s1 converts a value x from 'self' to base units, 
-        # and (x/s1)-d1 converts x from base to 'self' units) and (s2,d2) be the conversion tuple from 'other' to base units then 
-        # we want to compute the conversion tuple (S,D) from 'self' to 'other' such that (x+D)*S converts x from 'self' units to 
+        # Let (s1,d1) be the conversion tuple from 'self' to base units (i.e. (x+d1)*s1 converts a value x from 'self' to base units,
+        # and (x/s1)-d1 converts x from base to 'self' units) and (s2,d2) be the conversion tuple from 'other' to base units then
+        # we want to compute the conversion tuple (S,D) from 'self' to 'other' such that (x+D)*S converts x from 'self' units to
         # 'other' units the formula to convert x from 'self' to 'other' units via the base units is (by definition of the conversion tuples):
         #    ( ((x+d1)*s1) / s2 ) - d2
         #  = ( (x+d1) * s1/s2) - d2
@@ -2519,7 +2519,7 @@ class PhysicalUnit :
         """
         Sets self's symbols to symbol with power 1.
 
-        :param symbol: 
+        :param symbol:
         :type symbol: `str`
         """
 
@@ -2922,4 +2922,4 @@ def printPredefinedUnits( ) :
         for power in unit.powers : s += "  %3d" % power
         units.append( s )
     units.sort( )
-    for unit in units : print unit
+    for unit in units : print(unit)

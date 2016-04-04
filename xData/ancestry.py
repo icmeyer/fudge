@@ -5,16 +5,16 @@
 #         (email: mattoon1@llnl.gov)
 # LLNL-CODE-683960.
 # All rights reserved.
-# 
-# This file is part of the FUDGE package (For Updating Data and 
+#
+# This file is part of the FUDGE package (For Updating Data and
 #         Generating Evaluations)
-# 
+#
 # When citing FUDGE, please use the following reference:
 #   C.M. Mattoon, B.R. Beck, N.R. Patel, N.C. Summers, G.W. Hedstrom, D.A. Brown, "Generalized Nuclear Data: A New Structure (with Supporting Infrastructure) for Handling Nuclear Data", Nuclear Data Sheets, Volume 113, Issue 12, December 2012, Pages 3145-3171, ISSN 0090-3752, http://dx.doi.org/10. 1016/j.nds.2012.11.008
-# 
-# 
+#
+#
 #     Please also read this link - Our Notice and Modified BSD License
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -25,7 +25,7 @@
 #     * Neither the name of LLNS/LLNL nor the names of its contributors may be used
 #       to endorse or promote products derived from this software without specific
 #       prior written permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
@@ -37,20 +37,20 @@
 # ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-# 
-# 
+#
+#
 # Additional BSD Notice
-# 
+#
 # 1. This notice is required to be provided under our contract with the U.S.
 # Department of Energy (DOE). This work was produced at Lawrence Livermore
 # National Laboratory under Contract No. DE-AC52-07NA27344 with the DOE.
-# 
+#
 # 2. Neither the United States Government nor Lawrence Livermore National Security,
 # LLC nor any of their employees, makes any warranty, express or implied, or assumes
 # any liability or responsibility for the accuracy, completeness, or usefulness of any
 # information, apparatus, product, or process disclosed, or represents that its use
 # would not infringe privately-owned rights.
-# 
+#
 # 3. Also, reference herein to any specific commercial products, process, or services
 # by trade name, trademark, manufacturer or otherwise does not necessarily constitute
 # or imply its endorsement, recommendation, or favoring by the United States Government
@@ -58,7 +58,7 @@
 # herein do not necessarily state or reflect those of the United States Government or
 # Lawrence Livermore National Security, LLC, and shall not be used for advertising or
 # product endorsement purposes.
-# 
+#
 # <<END-copyright>>
 
 import abc
@@ -70,11 +70,11 @@ class ancestry :
     """
     This class is designed to be a base class for a class (instance) that is a member in another
     class (instance). The function of this class is to aid in tracking a class's ancestors. That is,
-    if an instance is part of a hierarchy, this class provides methods, for example, that list 
-    the position of the instance within the hierarchy or give its position relative to another member 
-    in the hierarchy using xlinks.  For example, if rs is a class with moniker 'reactionSuite' containing 
+    if an instance is part of a hierarchy, this class provides methods, for example, that list
+    the position of the instance within the hierarchy or give its position relative to another member
+    in the hierarchy using xlinks.  For example, if rs is a class with moniker 'reactionSuite' containing
     reactionA and reactionB, each with moniker 'reaction', then
-        
+
         >>>reactionA.getAncestor() -> rs
         >>>reactionB.toXLink() -> "/reactionSuite/reaction[@label='1']"
 
@@ -86,8 +86,8 @@ class ancestry :
 
     For an instance, the xlink is '/the/list/of/ancestors/self' if attribute is None or
     '/the/list/of/ancestors/self[@attribute="value"]' if attribute is not None. For example,
-    for a hierarchy consisting of class A with moniker 'nameA' and member mB of class B, class B 
-    with moniker 'nameB' and member mC of class C and class C with moniker 'nameC', then the xlink 
+    for a hierarchy consisting of class A with moniker 'nameA' and member mB of class B, class B
+    with moniker 'nameB' and member mC of class C and class C with moniker 'nameC', then the xlink
     for an instance of a C class in the hierarchy is '/nameA/nameB/nameC'. If the mC instance
     set attribute to be the member 'greeting' that, for this example as value 'Hi', then the
     xlink for the C class is '/nameA/nameB/nameC[@greeting="Hi"]'.
@@ -121,10 +121,10 @@ class ancestry :
 
     def findEntity( self, entityName, attribute = None, value = None ) :
         """
-        Default findEntity method. In general, this method should be over written by sub-class. This method 
-        uses the follow algorithm to find entity. Firstly, if 'attribute' is None, then self is assumed to 
-        have a attribute named entityName which is taken to be the desired entity. Otherwise, self is iterated 
-        over until an item with an attribute named attribute with value value is found. In either case, if 
+        Default findEntity method. In general, this method should be over written by sub-class. This method
+        uses the follow algorithm to find entity. Firstly, if 'attribute' is None, then self is assumed to
+        have a attribute named entityName which is taken to be the desired entity. Otherwise, self is iterated
+        over until an item with an attribute named attribute with value value is found. In either case, if
         an entity is found, its moniker value must be entityName. If no entity is found, raise AttributeError.
         """
 
@@ -162,13 +162,13 @@ class ancestry :
     def setAncestor( self, ancestor, attribute = None ) :
         """Sets self's ancestor to ancestor."""
 
-        self.ancestor = ancestor 
+        self.ancestor = ancestor
         self.attribute = attribute
 
     def toRelativeXLink( self, other = None ) :
         """
         Returns a string that is a relative xlink to another element (using XML xpath syntax).
-        Both elements must reside in the same hierarchy.  For a description of xpath, see 
+        Both elements must reside in the same hierarchy.  For a description of xpath, see
         http://en.wikipedia.org/wiki/XPath_1.0#Syntax_and_semantics.
         """
 
@@ -176,7 +176,7 @@ class ancestry :
             if( self.ancestor is None ) : return( '' )
             return( self.ancestor.toRelativeXLink( ) + '../' )
         else :
-            if( self.getRootAncestor( ) is not other.getRootAncestor( ) ) : 
+            if( self.getRootAncestor( ) is not other.getRootAncestor( ) ) :
                 raise Exception( 'Root ancestors not the same ("%s" != "%s")' % ( self.toXLink( ), other.toXLink( ) ) )
             thisPath = self.toXLink( ).split( '/' )
             othersPath = other.toXLink( ).split( '/' )
@@ -190,14 +190,14 @@ class ancestry :
 
     def toXLink( self, attributeName = None, attributeValue = None ) :
         """
-        Returns a string that is an xlink to self (using XML xpath syntax).  The resulting 
-        xlink starts at the root element. For a description of xpath, see 
+        Returns a string that is an xlink to self (using XML xpath syntax).  The resulting
+        xlink starts at the root element. For a description of xpath, see
         http://en.wikipedia.org/wiki/XPath_1.0#Syntax_and_semantics.
         """
 
         s1, attribute = '', ''
         if( self.ancestor is not None ) : s1 = self.ancestor.toXLink( )
-        if( ( attributeName is None ) and ( self.attribute is not None ) ) : 
+        if( ( attributeName is None ) and ( self.attribute is not None ) ) :
             attributeName, attributeValue = self.attribute, getattr( self, self.attribute )
         if( attributeName is not None ) :
             if( attributeValue is None ) : raise Exception( 'attributeValue is None while attributeName is not' )
@@ -304,14 +304,14 @@ if( __name__ == '__main__' ) :
     p.addChild( c )
     gc1 = grandson( 'Joe' )
     c.addChild( gc1 )
-    print str( p )
-    print str( c )
-    print str( gc1 )
+    print(str( p ))
+    print(str( c ))
+    print(str( gc1 ))
     gc2 = granddaughter( 'Tami' )
     c.addChild( gc2 )
-    print gc2
+    print(gc2)
 
-    print p.findEntity( 'child', 'name', 'Mary' )
-    print c.findEntity( 'child', 'name', 'Tom' )
-    print c.findEntity( 'granddaughter', 'name', 'Tami' )
-    print c.findEntity( 'grandson', 'name', 'Joe' )
+    print(p.findEntity( 'child', 'name', 'Mary' ))
+    print(c.findEntity( 'child', 'name', 'Tom' ))
+    print(c.findEntity( 'granddaughter', 'name', 'Tami' ))
+    print(c.findEntity( 'grandson', 'name', 'Joe' ))
