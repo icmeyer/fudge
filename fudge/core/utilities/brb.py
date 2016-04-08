@@ -64,6 +64,9 @@
 """
 This module contains a set of functions that are hopefully useful when using python.
 """
+
+from __future__ import print_function
+
 import sys
 import os
 import re

@@ -77,7 +77,7 @@ __metaclass__ = type
 
 from . import base as baseModule
 from . import link as linkModule
-from . import XYs as XYsModule
+import xData.XYs
 
 class uncertainties( baseModule.xDataCoreMembers ):
 
@@ -184,7 +184,7 @@ class uncertainty( baseModule.xDataCoreMembers ):
             raise TypeError("uncertainty element must contain exactly one functional")
         functionalClass = {
             linkModule.link.moniker: linkModule.link,
-            XYsModule.XYs1d.moniker: XYsModule.XYs1d,
+            xData.XYs.XYs1d.moniker: xData.XYs.XYs1d,
         }.get( element[0].tag )
         kwargs['functional'] = functionalClass.parseXMLNode( element[0], xPath, linkData )
         uncertainty_ = uncertainty( **kwargs )
